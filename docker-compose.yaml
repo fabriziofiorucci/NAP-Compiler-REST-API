@@ -1,0 +1,36 @@
+version: "3.9"
+
+secrets:
+  nginx-crt:
+    file: ${NGINX_CERT}
+  nginx-key:
+    file: ${NGINX_KEY}
+
+services:
+  nap-compiler:
+    image: nap-compiler
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      secrets:
+        - nginx-crt
+        - nginx-key
+    #user: "${USERID}:${USERGROUP}"
+    container_name: "nap-compiler"
+    #restart: always
+    ports:
+      - "6000:5000"
+    networks:
+      - nap-compiler
+    volumes:
+      - type: bind
+        source: ./etc/global_settings.json
+        target: /compiler/etc/global_settings.json
+        read_only: true
+      - type: bind
+        source: ./etc/uds.json
+        target: /compiler/etc/uds.json
+        read_only: true
+
+networks:
+  nap-compiler:

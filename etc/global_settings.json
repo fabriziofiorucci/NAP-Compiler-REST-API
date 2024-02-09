@@ -1,0 +1,12 @@
+{
+  "waf-settings": {
+    "cookie-protection": {
+      "seed": "207917557159874322"
+    },
+    "user-defined-signatures": [
+      {
+        "$ref": "file:///compiler/etc/uds.json"
+      }
+    ]
+  }
+}

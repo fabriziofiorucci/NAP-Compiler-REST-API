@@ -1,0 +1,44 @@
+{
+    "softwareVersion": "15.1.0",
+    "tag": "Fruits",
+    "signatures": [
+        {
+            "name": "Clementine_medium_acc",
+            "rule": "content:\"clementine\"; nocase;",
+            "signatureType": "request",
+            "attackType": {
+                "name": "Brute Force Attack"
+            },
+            "systems": [
+                {
+                    "name": "Microsoft Windows"
+                },
+                {
+                    "name": "Unix/Linux"
+                }
+            ],
+            "risk": "medium",
+            "accuracy": "medium",
+            "description": "Medium accuracy user defined signature with tag (Fruits)"
+        },
+        {
+            "name": "Banana_high_acc",
+            "rule": "content:\"banana\"; nocase;",
+            "signatureType": "request",
+            "attackType": {
+                "name": "Brute Force Attack"
+            },
+            "systems": [
+                {
+                    "name": "Microsoft Windows"
+                },
+                {
+                    "name": "Unix/Linux"
+                }
+            ],
+            "risk": "high",
+            "accuracy": "high",
+            "description": "High accuracy user defined signature with tag (Fruits)"
+        }
+    ]
+}
