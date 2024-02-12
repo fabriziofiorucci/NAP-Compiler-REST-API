@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nap-compiler
+  labels:
+    app: nap-compiler
+spec:
+  selector:
+    matchLabels:
+      app: nap-compiler
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nap-compiler
+    spec:
+      containers:
+      - name: nap-compiler
+        #image: <NAP_COMPILER_REST_API_DOCKER_IMAGE>
+        image: registry.k8s.ie.ff.lan:31005/nap-compiler:latest
+        ports:
+        - name: http
+          containerPort: 5000
+        volumeMounts:
+        - name: global-settings
+          mountPath: /compiler/etc/global_settings.json
+          subPath: global_settings.json
+        - name: uds
+          mountPath: /compiler/etc/uds.json
+          subPath: uds.json
+      volumes:
+      - name: global-settings
+        configMap:
+          name: global-settings
+      - name: uds
+        configMap:
+          name: uds
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nap-compiler
+  labels:
+    app: nap-compiler
+spec:
+  ports:
+  - name: http
+    port: 5000
+  selector:
+    app: nap-compiler
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: nap-compiler
+  name: nap-compiler
+spec:
+  ingressClassName: nginx
+  rules:
+  #- host: <NAP_COMPILER_REST_API_FQDN>
+  - host: nap-compiler.k8s.f5.ff.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: nap-compiler
+            port:
+              number: 5000
+        path: /
+        pathType: Prefix

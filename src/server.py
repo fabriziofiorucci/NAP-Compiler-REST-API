@@ -13,7 +13,7 @@ from fastapi.responses import PlainTextResponse, Response, JSONResponse
 app = FastAPI(
     title="NGINX App Protect WAF Compiler REST API",
     version="1.0.0",
-    contact={"name": "GitHub", "url": "https://github.com/TBD"}
+    contact={"name": "GitHub", "url": "https://github.com/fabriziofiorucci/NAP-Compiler-REST-API"}
 )
 
 JSONObject = Dict[AnyStr, Any]

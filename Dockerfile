@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 WORKDIR /compiler
 
 # REST API wrapper
-COPY src src/
+COPY ../../src src/
 
 RUN --mount=type=secret,id=nginx-crt,dst=/etc/ssl/nginx/nginx-repo.crt,mode=0644 \
     --mount=type=secret,id=nginx-key,dst=/etc/ssl/nginx/nginx-repo.key,mode=0644 \
@@ -34,7 +34,6 @@ RUN --mount=type=secret,id=nginx-crt,dst=/etc/ssl/nginx/nginx-repo.crt,mode=0644
         app-protect-attack-signatures \
         app-protect-bot-signatures \
         app-protect-threat-campaigns && \
-
 	apt-get -y install python3 python3-venv && \
 	python3 -m venv /compiler/env/ && \
 	. /compiler/env/bin/activate && \

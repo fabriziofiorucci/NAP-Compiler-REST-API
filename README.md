@@ -1,32 +1,41 @@
 # REST API for NGINX App Protect WAF Compiler
 
+This repository provides a set of REST API to use the NGINX App Protect policy compiler within an automation pipeline.
+The service can be run either on `docker-compose` or on `Kubernetes`.
+
 ## Requirements
 
 - NGINX App Protect WAF Compiler
-- docker version v24+
-- docker-compose v2.20+
+- docker version v24+ to build the image
+- One of:
+  - docker-compose v2.20+
+  - kuberetes cluster
 
-## How to run
+## Building the Docker image
+
+The docker image can be built using:
 
 ```
-./nap-compiler.sh -c start -C <NGINX_CERTIFICATE_FILE> -K <NGINX_KEY_FILE>
+docker build --no-cache -f Dockerfile \
+  --secret id=nginx-key,src=<NGINX_KEY_FILE> --secret id=nginx-crt,src=<NGINX_CERTIFICATE_FILE> \
+  -t <DESTINATION_DOCKER_IMAGE_NAME:TAG> .
 ```
 
 Example:
 
 ```
-./nap-compiler.sh -c start -C /etc/ssl/nginx/nginx-repo.crt -K /etc/ssl/nginx/nginx-repo.key
+docker build --no-cache -f Dockerfile \
+  --secret id=nginx-key,src=/etc/ssl/nginx/nginx-repo.key --secret id=nginx-crt,src=/etc/ssl/nginx/nginx-repo.crt \
+  -t nap-compiler:latest .
 ```
 
-## How to stop
+Note: the docker image is automatically built by the `docker-compose.yaml` in the example
 
-```
-./nap-compiler.sh -c stop
-```
+## How to run
 
-## How to test
+This repository can be run on:
 
-```
-cd examples
-./compileTest.sh xss-allowed.json > output.json
-```
+- [Docker compose](contrib/docker-compose)
+- [Kubernetes](contrib/kubernetes)
+
+and tested through the [examples](contrib/examples) provided

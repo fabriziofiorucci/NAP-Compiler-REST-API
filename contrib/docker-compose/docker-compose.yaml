@@ -10,25 +10,23 @@ services:
   nap-compiler:
     image: nap-compiler
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: ../../
+      dockerfile: ./Dockerfile
       secrets:
         - nginx-crt
         - nginx-key
-    #user: "${USERID}:${USERGROUP}"
     container_name: "nap-compiler"
-    #restart: always
     ports:
       - "6000:5000"
     networks:
       - nap-compiler
     volumes:
       - type: bind
-        source: ./etc/global_settings.json
+        source: ../../etc/global_settings.json
         target: /compiler/etc/global_settings.json
         read_only: true
       - type: bind
-        source: ./etc/uds.json
+        source: ../../etc/uds.json
         target: /compiler/etc/uds.json
         read_only: true
 

@@ -14,8 +14,8 @@ $0 [options]\n\n
 -K [file.key]\t\t\t- Key file to pull packages from the NGINX repository\n
 -c [start|stop|restart]\t- Deployment command\n\n
 === Examples:\n\n
-Deploy NAP Compiler :\t$0 -c start\n
-Remove NAP Compiler :\t$0 -c stop\n
+Deploy NAP Compiler :\t$0 -c start -C <NGINX_CERTIFICATE> -K <NGINX_KEY>\n
+Remove NAP Compiler :\t$0 -c stop -C <NGINX_CERTIFICATE> -K <NGINX_KEY>\n
 Restart NAP Compiler:\t$0 -c restart\n
 "
 
