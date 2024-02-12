@@ -23,3 +23,4 @@ cd contrib/examples
 ./nap-compiler-test.sh kubernetes xss-allowed.json > output.json
 ```
 
+Note: when testing on Kubernetes modify the URL FQDN in `nap-compiler-test.sh`
