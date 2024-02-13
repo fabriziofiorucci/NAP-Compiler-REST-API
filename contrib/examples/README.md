@@ -39,3 +39,9 @@ Log profile compilation:
 ```
 ./nap-compiler-test.sh kubernetes log logformat.custom.json > output.json
 ```
+
+Bundle information retrieval:
+
+```
+./nap-compiler-test.sh kubernetes info bundles/test-bundle.tgz > output.json
+```
