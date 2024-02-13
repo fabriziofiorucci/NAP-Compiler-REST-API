@@ -3,24 +3,39 @@
 To test the REST API:
 
 ```
-cd contrib/examples
-./nap-compiler-test.sh [docker-compose|kubernetes] <NGINX_APP_PROTECT_POLICY_FILE> | jq
+./nap-compiler-test.sh <docker-compose|kubernetes> <policy|log|info> <INPUT_FILE> [<OPTIONAL_CUSTOM_SIGNATURES_FILE>] | jq
 ```
 
-## Examples
+## Examples - docker-compose deployment
 
-To test when deployed on docker-compose:
-
-```
-cd contrib/examples
-./nap-compiler-test.sh docker-compose xss-allowed.json > output.json
-```
-
-To test when deployed on Kubernetes:
+Policy compilation:
 
 ```
-cd contrib/examples
-./nap-compiler-test.sh kubernetes xss-allowed.json > output.json
+./nap-compiler-test.sh docker-compose policy policies/xss-allowed.json signatures/uds.conf > output.json
 ```
 
-Note: when testing on Kubernetes modify the URL FQDN in `nap-compiler-test.sh`
+Log profile compilation:
+
+```
+./nap-compiler-test.sh docker-compose log logprofiles/customlog.json > output.json
+```
+
+Bundle information retrieval:
+
+```
+./nap-compiler-test.sh docker-compose info bundles/test-bundle.tgz > output.json
+```
+
+## Examples - docker-compose deployment
+
+Policy compilation:
+
+```
+./nap-compiler-test.sh kubernetes policy policies/xss-allowed.json signatures/uds.conf > output.json
+```
+
+Log profile compilation:
+
+```
+./nap-compiler-test.sh kubernetes log logformat.custom.json > output.json
+```

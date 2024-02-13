@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "36d10a00-5aff-41b2-90f8-ff876ec87454",
+		"name": "NGINX App Protect WAF Compiler REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1667416",
+		"_collection_link": "https://orange-rocket-1353.postman.co/workspace/NGINX~3b744358-53c9-4664-be10-f7d30ab89f84/collection/1667416-36d10a00-5aff-41b2-90f8-ff876ec87454?action=share&source=collection_link&creator=1667416"
+	},
+	"item": [
+		{
+			"name": "Policy compile",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"nap_policy_b64\", btoa(pm.collectionVariables.get(\"nap_policy\")));",
+							"pm.collectionVariables.set(\"nap_signatures_b64\", btoa(pm.collectionVariables.get(\"nap_signatures\")));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user-signatures\": \"{{nap_signatures_b64}}\",\n    \"policy\": \"{{nap_policy_b64}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{nap_compiler_host}}/{{api_version}}/compile/policy",
+					"protocol": "http",
+					"host": [
+						"{{nap_compiler_host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"compile",
+						"policy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log profile compile",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"nap_logprofile_b64\", btoa(pm.collectionVariables.get(\"nap_logprofile\")));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"logprofile\": \"{{nap_logprofile_b64}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{nap_compiler_host}}/{{api_version}}/compile/logprofile",
+					"protocol": "http",
+					"host": [
+						"{{nap_compiler_host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"compile",
+						"logprofile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log profile compile Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bundle\": \"{{nap_bundle_b64}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{nap_compiler_host}}/{{api_version}}/bundle/info",
+					"protocol": "http",
+					"host": [
+						"{{nap_compiler_host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"bundle",
+						"info"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "nap_compiler_host",
+			"value": "127.0.0.1:6000",
+			"type": "string"
+		},
+		{
+			"key": "api_version",
+			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "nap_policy",
+			"value": "{\n    \"policy\": {\n        \"name\": \"prod-policy\",\n        \"template\": {\n            \"name\": \"POLICY_TEMPLATE_NGINX_BASE\"\n        },\n        \"applicationLanguage\": \"utf-8\",\n        \"enforcementMode\": \"blocking\",\n        \"signature-sets\": [\n            {\n                \"name\": \"All Signatures\",\n                \"block\": true,\n                \"alarm\": true\n            }\n        ],\n        \"signatures\": [\n            {\n                \"signatureId\": 200001834,\n                \"enabled\": false\n            },\n            {\n                \"signatureId\": 200001475,\n                \"enabled\": false\n            },\n            {\n                \"signatureId\": 200000098,\n                \"enabled\": false\n            },\n            {\n                \"signatureId\": 200001088,\n                \"enabled\": false\n            },\n            {\n                \"signatureId\": 200101609,\n                \"enabled\": false\n            }\n        ]\n    }\n}\n",
+			"type": "string"
+		},
+		{
+			"key": "nap_logprofile",
+			"value": "{\n  \"filter\": {\n    \"request_type\": \"all\"\n  },\n  \"content\": {\n    \"format\": \"splunk\",\n    \"max_request_size\": \"any\",\n    \"max_message_size\": \"10k\"\n  }\n}\n",
+			"type": "string"
+		},
+		{
+			"key": "nap_bundle_b64",
+			"value": "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",
+			"type": "string"
+		},
+		{
+			"key": "nap_signatures",
+			"value": "{\n    \"softwareVersion\": \"15.1.0\",\n    \"tag\": \"Fruits\",\n    \"signatures\": [\n        {\n            \"name\": \"Clementine_medium_acc\",\n            \"rule\": \"content:\\\"clementine\\\"; nocase;\",\n            \"signatureType\": \"request\",\n            \"attackType\": {\n                \"name\": \"Brute Force Attack\"\n            },\n            \"systems\": [\n                {\n                    \"name\": \"Microsoft Windows\"\n                },\n                {\n                    \"name\": \"Unix/Linux\"\n                }\n            ],\n            \"risk\": \"medium\",\n            \"accuracy\": \"medium\",\n            \"description\": \"Medium accuracy user defined signature with tag (Fruits)\"\n        },\n        {\n            \"name\": \"Banana_high_acc\",\n            \"rule\": \"content:\\\"banana\\\"; nocase;\",\n            \"signatureType\": \"request\",\n            \"attackType\": {\n                \"name\": \"Brute Force Attack\"\n            },\n            \"systems\": [\n                {\n                    \"name\": \"Microsoft Windows\"\n                },\n                {\n                    \"name\": \"Unix/Linux\"\n                }\n            ],\n            \"risk\": \"high\",\n            \"accuracy\": \"high\",\n            \"description\": \"High accuracy user defined signature with tag (Fruits)\"\n        }\n    ]\n}\n",
+			"type": "string"
+		},
+		{
+			"key": "nap_policy_b64",
+			"value": ""
+		},
+		{
+			"key": "nap_signatures_b64",
+			"value": ""
+		},
+		{
+			"key": "nap_logprofile_b64",
+			"value": ""
+		}
+	]
+}

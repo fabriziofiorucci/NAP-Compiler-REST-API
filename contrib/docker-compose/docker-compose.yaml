@@ -20,15 +20,6 @@ services:
       - "6000:5000"
     networks:
       - nap-compiler
-    volumes:
-      - type: bind
-        source: ../../etc/global_settings.json
-        target: /compiler/etc/global_settings.json
-        read_only: true
-      - type: bind
-        source: ../../etc/uds.json
-        target: /compiler/etc/uds.json
-        read_only: true
 
 networks:
   nap-compiler:

@@ -11,6 +11,24 @@ The service can be run either on `docker-compose` or on `Kubernetes`.
   - docker-compose v2.20+
   - kuberetes cluster
 
+## REST API Endpoints
+
+- `/v1/compile/policy` - compiles a JSON policy into a bundle
+  - Method: `POST`
+  - Payload: `{"global-settings": "<BASE64_ENCODED_GLOBAL_SETTINGS_JSON>", "policy": "<BASE64_ENCODED_POLICY_JSON>"}`
+- `/v1/compile/logprofile` - compiles a log profile JSON into a bundle
+  - Method: `POST`
+  - Payload: `{"logprofile": "<BASE64_ENCODED_LOG_PROFILE_JSON>"}`
+- `/v1/bundle/info` - returns details on a compiled bundle
+  - Method: `POST`
+  - Payload: `{"bundle": "<BASE64_ENCODED_TGZ_BUNDLE>"}`
+
+Headers required for all endpoints:
+
+```
+Content-Type: application/json
+```
+
 ## Building the Docker image
 
 The docker image can be built using:
@@ -38,4 +56,7 @@ This repository can be run on:
 - [Docker compose](contrib/docker-compose)
 - [Kubernetes](contrib/kubernetes)
 
-and tested through the [examples](contrib/examples) provided
+## How to test
+
+- See the [examples](contrib/examples)
+- Use the [Postman collection](contrib/postman)

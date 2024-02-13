@@ -21,20 +21,6 @@ spec:
         ports:
         - name: http
           containerPort: 5000
-        volumeMounts:
-        - name: global-settings
-          mountPath: /compiler/etc/global_settings.json
-          subPath: global_settings.json
-        - name: uds
-          mountPath: /compiler/etc/uds.json
-          subPath: uds.json
-      volumes:
-      - name: global-settings
-        configMap:
-          name: global-settings
-      - name: uds
-        configMap:
-          name: uds
 
 ---
 apiVersion: v1
