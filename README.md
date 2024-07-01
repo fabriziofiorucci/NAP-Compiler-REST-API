@@ -8,8 +8,8 @@ The service can be run either on `docker-compose` or on `Kubernetes`.
 - NGINX App Protect WAF Compiler
 - docker version v24+ to build the image
 - One of:
-  - docker-compose v2.20+
-  - kuberetes cluster
+  - Docker-compose v2.20+
+  - Kubernetes cluster
 
 ## REST API Endpoints
 
